@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
+import MyLi from './li.js';
+import Calculator from './Calculator.js'
 
 const str = 'hello world!';
 
@@ -34,7 +36,8 @@ class App extends Component {
         this.state = {
             date: new Date(),
             number: 'hello',
-            isLogin: false
+            isLogin: false,
+            books:['五年高考','三年模拟'],
         };
         this.selfClick = this.selfClick.bind(this);
         this.loginIn = this.loginIn.bind(this);
@@ -100,6 +103,8 @@ class App extends Component {
                     isLogin && <p>欢迎女装大佬</p>
                 }
                 <MyButton buttonName = {this.props.name}/>
+                <MyLi books = {this.state.books} />
+                <Calculator/>
             </div>
         )
     }
