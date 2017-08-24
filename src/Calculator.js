@@ -11,7 +11,7 @@ class Calculator extends Component {
     }
 
     toCelsius(fahrenheit) {
-        
+
     }
 
    render() {
