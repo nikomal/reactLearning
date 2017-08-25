@@ -9,16 +9,13 @@ class TemplateInput extends Component {
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
-        this.state = {
-            template:''
-        }
     }
     handleChange(e){
-        this.setState({template:e.target.value})
+        this.props.onTemperatureChange(e.target.value)
     }
 
     render(){
-        const template = this.state.template;
+        const template = this.props.temperature;
         const scale = this.props.scale;
         return(
             <fieldset>
