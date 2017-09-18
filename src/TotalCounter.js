@@ -1,31 +1,48 @@
 import React, {Component} from 'react';
 import Counter from './Counter.js'
+import store from './store.js'
 
 
 class TotalCounter extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            counter: 0
-        };
-        this.addCounter = this.addCounter.bind(this);
+        this.state = this.getOwnState();
+        this.getOwnState = this.getOwnState.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
-    addCounter() {
-        this.setState(() => {
-            return {
-                counter:this.state.counter + 1
+    getOwnState(){
+        const state = store.getState();
+        let sum = 0;
+        for(let key in state) {
+            if(state.hasOwnProperty(key)) {
+                sum+=state[key]
             }
-        })
+        }
+        return {sum:sum};
     }
+
+    onChange() {
+        this.setState(this.getOwnState())
+    }
+
+    componentDidMount() {
+        store.subscribe(this.onChange)
+    }
+
+    componentWillUnmount() {
+        store.unsubscribe(this.onChange)
+    }
+
+
 
     render() {
         return (
             <div>
-                <p>总数为:{this.state.counter}</p>
-                <Counter onCounter = {this.addCounter}/>
-                <Counter onCounter = {this.addCounter}/>
-                <Counter onCounter = {this.addCounter}/>
+                <p>总数为:{this.state.sum}</p>
+                <Counter caption='first'/>
+                <Counter caption='second'/>
+                <Counter caption='third'/>
             </div>
         )
     }

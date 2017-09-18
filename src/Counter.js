@@ -1,22 +1,36 @@
 import React,{Component} from 'react';
+import store from './store.js';
+import * as Actions from './Actions.js'
 
 class Counter extends Component {
      constructor(props){
          super(props);
-         this.state = {
-             counter:0
-         };
-         this.onCounterChange = this.onCounterChange.bind(this);
+         this.state = this.getOwnState();
+         this.getOwnState = this.getOwnState.bind(this);
+         this.onChange = this.onChange.bind(this);
+         this.onCounterChange = this.onCounterChange.bind(this)
+     }
+
+     getOwnState() {
+         return {
+             counter:store.getState()[this.props.caption]
+         }
+     }
+
+     onChange(){
+         this.setState(this.getOwnState())
+     }
+
+     componentDidMount(){
+         store.subscribe(this.onChange)
+     }
+
+     componentWillUnmount(){
+         store.unsubscribe(this.onChange)
      }
 
      onCounterChange(){
-         this.setState(() =>{
-             return {
-                 counter:this.state.counter+1
-             };
-
-         });
-         this.props.onCounter();
+         store.dispatch(Actions.increment(this.props.caption))
      }
 
      render() {
