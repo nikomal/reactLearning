@@ -81,7 +81,6 @@ class App extends Component {
         return (
             <div className="App">
                 <h2 onClick={this.selfClick}>{str}</h2>
-                <p>{this.props.name}</p>
                 <p>{this.state.date.toLocaleTimeString()}</p>
                 {button}
                 {

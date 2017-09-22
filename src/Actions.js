@@ -6,3 +6,10 @@ export const increment = (counterCaption) => {
         counterCaption:counterCaption
     }
 };
+
+export const decrement = (counterCaption) =>{
+  return {
+      type:ActionTypes.DECREMENT,
+      counterCaption:counterCaption
+  }
+};
